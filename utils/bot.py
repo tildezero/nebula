@@ -11,7 +11,7 @@ class Bot(commands.Bot):
         intents = discord.Intents.default()
         intents.members = True
 
-        super.__init__(
+        super().__init__(
             command_prefix="!", 
             intents=intents, 
             allowed_mentions = discord.AllowedMentions(everyone=False,roles=False, replied_user=False)
