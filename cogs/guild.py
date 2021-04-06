@@ -16,7 +16,7 @@ class Guild(commands.Cog):
             return await ctx.send(f"Your Minecraft and Discord accounts are not linked! Please update your discord link on hypixel from {res_player['links']['DISCORD']} to {str(ctx.author)}", hidden=True)
         req_guild = await self.bot.session.get(f"https://api.slothpixel.me/api/guilds/{username}")
         res_guild = await req_guild.json()
-        if not res_guild['name'] == "Nebula Shadows":
+        if not res_guild['name'] == "Galaxy Crusaders":
             return await ctx.send(f"You are not in the guild!", hidden=True)
         role = ctx.guild.get_role(828657324877021204)
         await ctx.author.add_roles(role)
