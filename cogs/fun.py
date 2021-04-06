@@ -60,3 +60,6 @@ class Fun(commands.Cog):
             await ctx.send(f"{ctx.author.display_name} says good afternoon")
         else:
             await ctx.send(f"{ctx.author.display_name} says good afternoon to {user.display_name}")
+
+def setup(bot):
+    bot.add_cog(Fun(bot))
