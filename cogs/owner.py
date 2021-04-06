@@ -17,6 +17,9 @@ class Owner(commands.Cog):
             self.bot.reload_extension(f"cogs.{cog}")
         except Exception as e:
             await ctx.send(f"Something happened... \n```py\n{e.__traceback__}\n```")
+        else:
+            await ctx.send("Sucessfully loaded the cog!")
+            
 
 def setup(bot):
     bot.add_cog(Owner(bot))
