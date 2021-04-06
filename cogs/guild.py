@@ -12,6 +12,8 @@ class Guild(commands.Cog):
     async def _guild(self, ctx: SlashContext, username):
         req_player = await self.bot.session.get(f"https://api.slothpixel.me/api/players/{username}")
         res_player = await req_player.json()
+        if "error" in res_player:
+            return await ctx.send("An error happened! Please check if the username you provided is correct", hidden=True)
         if res_player['links']['DISCORD'] != str(ctx.author):
             return await ctx.send(f"Your Minecraft and Discord accounts are not linked! Please update your discord link on hypixel from {res_player['links']['DISCORD']} to {str(ctx.author)}", hidden=True)
         req_guild = await self.bot.session.get(f"https://api.slothpixel.me/api/guilds/{username}")
