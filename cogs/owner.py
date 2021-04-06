@@ -18,8 +18,27 @@ class Owner(commands.Cog):
         except Exception as e:
             await ctx.send(f"Something happened... \n```py\n{e.__traceback__}\n```")
         else:
-            await ctx.send("Sucessfully loaded the cog!")
-            
+            await ctx.send(f"Sucessfully loaded the cog! ({cog}.py)")
+
+    @commands.command()
+    async def load(self, ctx, cog):
+        """ Loads the given cog. """
+        try:
+            self.bot.load_extension(f"cogs.{cog}")
+        except Exception as e:
+            await ctx.send(f"Something happened... \n```py\n{e.__traceback__}\n```")
+        else:
+            await ctx.send(f"Sucessfully loaded the cog! ({cog}.py)")
+
+    @commands.command()
+    async def unload(self, ctx, cog):
+        """ Unloads the given cog. """
+        try:
+            self.bot.unload_extension(f"cogs.{cog}")
+        except Exception as e:
+            await ctx.send(f"Something happened... \n```py\n{e.__traceback__}\n```")
+        else:
+            await ctx.send(f"Sucessfully unloaded the cog! ({cog}.py)")
 
 def setup(bot):
     bot.add_cog(Owner(bot))
