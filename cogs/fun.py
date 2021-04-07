@@ -12,7 +12,8 @@ class Fun(commands.Cog):
     @commands.command()
     async def fml(self, ctx):
         await ctx.trigger_typing()
-        data = await self.bot.session.get("https://www.fmylife.com/random",res_method="text")
+        req = await self.bot.session.get("https://www.fmylife.com/random")
+        data = await req.text()
         soup = BeautifulSoup(data, "lxml")
         content = soup.find("a", attrs={"class": "article-link"}).text
         await ctx.send(content)
@@ -20,7 +21,8 @@ class Fun(commands.Cog):
     @commands.command()
     async def topic(self, ctx):
         await ctx.trigger_typing()
-        r = await self.bot.session.get("https://conversationstarters.com/generator.php", res_method="text")
+        r = await self.bot.session.get("https://conversationstarters.com/generator.php")
+        data = r.text()
         soup = BeautifulSoup(r, "lxml")
         div = soup.find("div", attrs={"id": "random"}).text
         await ctx.send(div)
