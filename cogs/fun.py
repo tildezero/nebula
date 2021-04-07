@@ -22,7 +22,7 @@ class Fun(commands.Cog):
     async def topic(self, ctx):
         await ctx.trigger_typing()
         r = await self.bot.session.get("https://conversationstarters.com/generator.php")
-        data = r.text()
+        data = await r.text()
         soup = BeautifulSoup(data, "lxml")
         div = soup.find("div", attrs={"id": "random"}).text
         await ctx.send(div)
