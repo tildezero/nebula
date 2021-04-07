@@ -52,16 +52,14 @@ class Fun(commands.Cog):
             await ctx.send(f"{ctx.author.display_name} says good morning")
         else:
             await ctx.send(f"{ctx.author.display_name} says good morning to {user.display_name}")
+    
+    @commands.command()
+    async def dog(self, ctx):
+        pass
 
     @commands.command()
-    async def ga(self, ctx, user: discord.Member = None):
-        """
-        Say good afternoon to someone
-        """
-        if user == None:
-            await ctx.send(f"{ctx.author.display_name} says good afternoon")
-        else:
-            await ctx.send(f"{ctx.author.display_name} says good afternoon to {user.display_name}")
+    async def cat(self, ctx):
+        pass
 
 def setup(bot):
     bot.add_cog(Fun(bot))
