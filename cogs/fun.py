@@ -55,11 +55,25 @@ class Fun(commands.Cog):
     
     @commands.command()
     async def dog(self, ctx):
-        pass
+        r = await self.bot.session.get("https://dog.ceo/api/breeds/image/random")
+        res = await r.json()
+        embed = discord.Embed(title="Random Dog 🐶")
+        embed.set_image(res['message'])
+        embed.set_author(name=str(ctx.author), icon_url=str(ctx.author.avatar_url))
+        embed.set_footer(text=str(self.bot.user))
+        await ctx.send(embed=embed)
+
 
     @commands.command()
     async def cat(self, ctx):
-        pass
+        r = await self.bot.session.get("aws.random.cat/meow")
+        res = await r.json()
+        embed = discord.Embed(title="Random Cat 🐈")
+        embed.set_image(res['file'])
+        embed.set_author(name=str(ctx.author), icon_url=str(ctx.author.avatar_url))
+        embed.set_footer(text=str(self.bot.user))
+        await ctx.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(Fun(bot))
