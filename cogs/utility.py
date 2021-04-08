@@ -56,7 +56,7 @@ class Utility(commands.Cog):
                 else:
                     out.append(v)
                 for p in out:
-                    embed.add_field(name="​", value=p)
+                    embed.add_field(name="​", value=p, inline=False)
                 try:
                     await ctx.send(embed=embed)
                 except:
