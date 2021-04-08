@@ -66,7 +66,7 @@ class Fun(commands.Cog):
 
     @commands.command()
     async def cat(self, ctx):
-        r = await self.bot.session.get("aws.random.cat/meow")
+        r = await self.bot.session.get("https://aws.random.cat/meow")
         res = await r.json()
         embed = discord.Embed(title="Random Cat 🐈")
         embed.set_image(url=res['file'])
