@@ -1,3 +1,4 @@
+from re import split
 import discord
 from discord.ext import commands
 from discord.flags import alias_flag_value
@@ -43,9 +44,25 @@ class Utility(commands.Cog):
             await ctx.send('No lyrics found for ' + query)
         else:
             first = results[0]
-            embed = discord.Embed(title = f"Lyrics for {first.name} by {first.artist}", description=first.lyrics)
+            embed = discord.Embed(title = f"Lyrics for {first.name}", description=first.artist)
             embed.set_footer(text="Lyrics provided by KSoft.Si")
-            await ctx.send(embed=embed)
+            out = []
+            split = first.lyrics.split("\n\n")
+            for v in split:
+                if len(out) == 0:
+                    out.append(v)
+                elif len(out[len(out) - 1]) + len(v) < 1000:
+                    out[len(out) - 1] += f"\n\n{v}"
+                else:
+                    out.append(v)
+                for p in out:
+                    embed.add_field(name="​", value=p)
+                try:
+                    await ctx.send(embed=embed)
+                except:
+                    await ctx.send(f"the lyrics are too long :(, you can see them here though: {first.url}")
+                    
+
 
 def setup(bot):
     bot.add_cog(Utility(bot))
