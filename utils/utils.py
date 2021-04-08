@@ -1,6 +1,6 @@
 import traceback
 
-""" misc utils functions """
+""" misc utils functions, mostly skidded """
 
 
 def traceback_maker(err, advance: bool = True):
@@ -13,6 +13,9 @@ def traceback_maker(err, advance: bool = True):
     return error if advance else f"{type(err).__name__}: {err}"
 
 def chunks(lst, n):
-    """Yield successive n-sized chunks from lst."""
+    """
+    Yield successive n-sized chunks from lst.
+    Source: https://stackoverflow.com/a/312464
+    """
     for i in range(0, len(lst), n):
         yield lst[i:i + n]
