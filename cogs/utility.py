@@ -47,8 +47,8 @@ class Utility(commands.Cog):
             embed = discord.Embed(title = f"Lyrics for {first.name}", description=first.artist)
             embed.set_footer(text="Lyrics provided by KSoft.Si")
             zws = "​"
-            fields_to_add = first.lyrics // 1000
-            remain = first.lyrics % 1000
+            fields_to_add = len(first.lyrics) // 1000
+            remain = len(first.lyrics) % 1000
             counter = 0
             for i in fields_to_add:
                 embed.add_field(name=zws, fields_to_add=first.lyrics[counter:counter+1000], inline=False)
