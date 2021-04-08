@@ -48,7 +48,7 @@ class Utility(commands.Cog):
             embed.set_footer(text="Lyrics provided by KSoft.Si")
             lyrics_list = list(chunks(first.lyrics, 1000))
             for ly in lyrics_list:
-                embed.add_field(name=zws, value=lyrics_list, inline=False)
+                embed.add_field(name=zws, value=ly, inline=False)
             await ctx.send(embed=embed)
             
             
