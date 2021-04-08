@@ -11,3 +11,8 @@ def traceback_maker(err, advance: bool = True):
     _traceback = ''.join(traceback.format_tb(err.__traceback__))
     error = ('```py\n{1}{0}: {2}\n```').format(type(err).__name__, _traceback, err)
     return error if advance else f"{type(err).__name__}: {err}"
+
+def chunks(lst, n):
+    """Yield successive n-sized chunks from lst."""
+    for i in range(0, len(lst), n):
+        yield lst[i:i + n]
