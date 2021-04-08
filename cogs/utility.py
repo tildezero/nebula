@@ -46,21 +46,16 @@ class Utility(commands.Cog):
             first = results[0]
             embed = discord.Embed(title = f"Lyrics for {first.name}", description=first.artist)
             embed.set_footer(text="Lyrics provided by KSoft.Si")
-            out = []
-            split = first.lyrics.split("\n\n")
-            for v in split:
-                if len(out) == 0:
-                    out.append(v)
-                elif len(out[len(out) - 1]) + len(v) < 1000:
-                    out[len(out) - 1] += f"\n\n{v}"
-                else:
-                    out.append(v)
-                for p in out:
-                    embed.add_field(name="​", value=p, inline=False)
-                try:
-                    await ctx.send(embed=embed)
-                except:
-                    await ctx.send(f"the lyrics are too long :(, you can see them here though: {first.url}")
+            zws = "​"
+            fields_to_add = first.lyrics // 1000
+            remain = first.lyrics % 1000
+            counter = 0
+            for i in fields_to_add:
+                embed.add_field(name=zws, fields_to_add=first.lyrics[counter:counter+1000], inline=False)
+                counter += 1000
+            if remain > 0:
+                embed.add_field(name=zws, value=first.lyrics[counter:counter+remain], inline=False)
+            await ctx.send(embed=embed)
                     
 
 
