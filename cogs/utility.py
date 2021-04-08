@@ -1,8 +1,8 @@
-from re import split
 import discord
 from discord.ext import commands
-from discord.flags import alias_flag_value
 import ksoftapi
+from utils.utils import chunks
+from utils.constants import ballresponse, zws
 
 class Utility(commands.Cog):
     def __init__(self, bot):
@@ -46,16 +46,12 @@ class Utility(commands.Cog):
             first = results[0]
             embed = discord.Embed(title = f"Lyrics for {first.name}", description=first.artist)
             embed.set_footer(text="Lyrics provided by KSoft.Si")
-            zws = "​"
-            fields_to_add = len(first.lyrics) // 1000
-            remain = len(first.lyrics) % 1000
-            counter = 0
-            for i in fields_to_add:
-                embed.add_field(name=zws, fields_to_add=first.lyrics[counter:counter+1000], inline=False)
-                counter += 1000
-            if remain > 0:
-                embed.add_field(name=zws, value=first.lyrics[counter:counter+remain], inline=False)
+            lyrics_list = list(chunks(first.lyrics, 1000))
+            for ly in lyrics_list:
+                embed.add_field(name=zws, value=lyrics_list, inline=False)
             await ctx.send(embed=embed)
+            
+            
                     
 
 
