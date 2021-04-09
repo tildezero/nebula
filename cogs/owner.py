@@ -1,3 +1,4 @@
+from utils.utils import traceback_maker
 import discord
 from discord.ext import commands
 import importlib
@@ -36,7 +37,7 @@ class Owner(commands.Cog):
         try:
             self.bot.unload_extension(f"cogs.{cog}")
         except Exception as e:
-            await ctx.send(f"Something happened... \n```py\n{e.__traceback__}\n```")
+            await ctx.send(f"Something happened... \n{traceback_maker(e)}")
         else:
             await ctx.send(f"Sucessfully unloaded the cog! ({cog}.py)")
 
