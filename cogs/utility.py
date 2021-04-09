@@ -3,6 +3,7 @@ from discord.ext import commands
 import ksoftapi
 from utils.utils import chunks
 from utils.constants import ballresponse, zws
+from urllib.parse import quote_plus
 
 class Utility(commands.Cog):
     def __init__(self, bot):
@@ -35,8 +36,8 @@ class Utility(commands.Cog):
         for i in range(len(answers)):
             await msg.add_reaction(EMOJI[i])
     
-    # @commands.command(aliases=['ly'])
-    # async def lyrics(self,ctx, *, query):
+    # @commands.command(aliases=['ly_ks'])
+    # async def lyrics_ksoft(self,ctx, *, query):
     #     """ Return lyrics for a given song """
     #     try:
     #         results = await self.kclient.music.lyrics(query=query,clean_up=True)
@@ -44,12 +45,24 @@ class Utility(commands.Cog):
     #         await ctx.send('No lyrics found for ' + query)
     #     else:
     #         first = results[0]
-    #         embed = discord.Embed(title = f"Lyrics for {first.name}", description=first.artist)
-    #         embed.set_footer(text="Lyrics provided by KSoft.Si")
-    #         lyrics_list = list(chunks(first.lyrics, 1000))
-    #         for ly in lyrics_list:
-    #             embed.add_field(name=zws, value=ly, inline=False)
-    #         await ctx.send(embed=embed)
+            # embed = discord.Embed(title = f"Lyrics for {first.name}", description=first.artist)
+            # embed.set_footer(text="Lyrics provided by KSoft.Si")
+            # lyrics_list = list(chunks(first.lyrics, 1000))
+            # for ly in lyrics_list:
+            #     embed.add_field(name=zws, value=ly, inline=False)
+            # await ctx.send(embed=embed)
+
+    @commands.command(aliases=['ly'])
+    async def lyrics(self, ctx, *, song):
+        data = await self.bot.session.get(f"https://some-random-api.ml/lyrics?title={quote_plus(song)}")
+        song = await data.json()
+        embed = discord.Embed(title = f"Lyrics for {song['title']}", description=song['author'])
+        embed.set_footer(text="Lyrics provided by some-random-api")
+        lyrics_list = list(chunks(song['lyrics'], 1000))
+        for ly in lyrics_list:
+            embed.add_field(name=zws, value=ly, inline=False)
+        await ctx.send(embed=embed)
+        
             
             
                     
