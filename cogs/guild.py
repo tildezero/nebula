@@ -23,9 +23,29 @@ class Guild(commands.Cog):
         role = ctx.guild.get_role(828657324877021204)
         await ctx.author.add_roles(role)
         await ctx.send("Welcome to the guild! I have sucessfully added your guild role. Enjoy!", hidden=True)
-
-
-
+    
+    @commands.has_any_role(828661477606817824,828662244652220436)
+    @commands.command(name='addguildrole', aliases=['agr', 'add-guild-role'])
+    async def add_guild_role(self, ctx, user: discord.Member):
+        """Manually adds the guild role to a user"""
+        guild_role = ctx.guild.get_role(828657324877021204) 
+        await user.add_roles(guild_role)
+        await ctx.send(f"I have added the guild role to {str(user)}!")
+    
+    @commands.command(name='inguild')
+    async def inguild(self, ctx, username: str):
+        """Checks if the given username is in the guild"""
+        resp = await self.bot.session.get(f"https://api.mojang.com/users/profiles/minecraft/{username}")
+        if resp.status == 204:
+            return await ctx.send("Invalid username!")
+        uuid_data = await resp.json()
+        uuid = uuid_data['id']
+        guild_resp = await self.bot.session.get(f"https://api.slothpixel.me/api/guilds/{uuid}")
+        guild_data = await guild_resp.json()
+        if guild_data['name'] == "Galaxy Crusaders":
+            await ctx.send(f"{uuid_data['name']} is in the guild!")
+        else:
+            await ctx.send(f"{uuid_data['name']} is not in the guild :(")
 
 
 def setup(bot):
