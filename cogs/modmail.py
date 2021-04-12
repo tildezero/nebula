@@ -14,3 +14,6 @@ class Modmail(commands.Cog):
         mm_category = gc_guild.get_channel(831261004260048976)
         channel = await mm_category.create_text_channel(name=str(message.author))
         self.modmail_db.insert({"_id": channel.id, "user": message.author.id})
+    
+def setup(bot):
+    bot.add_cog(Modmail(bot))
