@@ -9,8 +9,6 @@ class Modmail(commands.Cog):
     
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
-        if isinstance(message.channel, discord.TextChannel):
-            return await self.bot.process_commands(message)
         if message.author == self.bot.user:
             return
         gc_guild = self.bot.get_guild(773042619734687766)
