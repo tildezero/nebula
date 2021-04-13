@@ -30,6 +30,9 @@ class Bot(commands.Bot):
     async def on_connect(self):
         print("connected!")
     
+    async def on_message(self, message):
+        self.process_commands(message)
+    
     async def on_ready(self):
         print(f"bot ready as {self.user}")
     

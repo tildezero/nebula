@@ -3,7 +3,6 @@ import discord
 from discord.ext import commands
 import importlib
 
-from discord.ext.commands.core import command
 
 class Owner(commands.Cog):
     """ Commands for the bot owner to use. """
@@ -17,7 +16,7 @@ class Owner(commands.Cog):
         try:
             self.bot.reload_extension(f"cogs.{cog}")
         except Exception as e:
-            await ctx.send(f"Something happened... \n```py\n{e.__traceback__}\n```")
+            await ctx.send(f"Something happened... \n{traceback_maker(e)}")
         else:
             await ctx.send(f"Sucessfully loaded the cog! ({cog}.py)")
 
@@ -27,7 +26,7 @@ class Owner(commands.Cog):
         try:
             self.bot.load_extension(f"cogs.{cog}")
         except Exception as e:
-            await ctx.send(f"Something happened... \n```py\n{e.__traceback__}\n```")
+            await ctx.send(f"Something happened... \n```py\n{traceback_maker(e)}\n```")
         else:
             await ctx.send(f"Sucessfully loaded the cog! ({cog}.py)")
 
