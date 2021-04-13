@@ -24,6 +24,8 @@ class Modmail(commands.Cog):
         else:
             await message.author.send("Your modmail thread has been created! Please wait patiently while a mod comes to your ticket")
             channel = await mm_category.create_text_channel(name=str(message.author))
+            await channel.send(f"New Modmail Thread from {str(message.author)} ({message.author.id})!")
+            await channel.send(f"Initial Message: {message.content}")
             self.modmail_db.insert_one({"_id": channel.id, "user": message.author.id})
 
     @commands.has_permissions(manage_messages=True)
