@@ -54,7 +54,7 @@ class Modmail(commands.Cog):
         if not ctx.channel.category_id == 831261004260048976:
             return await ctx.send("not a modmail category!")
         mm_log_channel = ctx.guild.get_channel(831343682169864213)
-        fetch = self.modmail_db.find({"_id": ctx.channel.id}).to_list(10)
+        fetch = await self.modmail_db.find({"_id": ctx.channel.id}).to_list(10)
         data = fetch[0]
         embed = discord.Embed(title="Modmail Thread Closed", description=f"Channel ID: {ctx.channel.id}\nUser: {data['user']}\nResponsible: {str(ctx.author)}\nReason: {reason}")
         embed.colour = discord.Colour.red()
