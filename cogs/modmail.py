@@ -38,6 +38,17 @@ class Modmail(commands.Cog):
         await ctx.send(f"**{str(ctx.author)}**: {message}")
     
     @commands.has_permissions(manage_messages=True)
+    @commands.command(aliases=['ar'])
+    async def anonreply(self, ctx, *, message):
+        if not ctx.channel.category_id == 831261004260048976:
+            return await ctx.send("not a modmail category!")
+        data = await self.modmail_db.find({"_id": ctx.channel.id}).to_list(100)
+        person = data[0]
+        user = self.bot.get_user(person['user'])
+        await user.send(f"**Staff**: {message}")
+        await ctx.send(f"**[Anon] {str(ctx.author)}**: {message}")
+    
+    @commands.has_permissions(manage_messages=True)
     @commands.command(aliases=['cl'])
     async def close(self, ctx, *, reason=None):
         if not ctx.channel.category_id == 831261004260048976:
