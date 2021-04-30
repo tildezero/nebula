@@ -60,7 +60,25 @@ class Guild(commands.Cog):
                 if gexp >= 30000:
                     ending_string += f"{member['profile']['username']} has 30k+ gexp ({gexp})\n"
         if len(ending_string) >= 2000:
-            hb = await self.bot.session.post("https://hst.sh/documents", datat = ending_string.encode('utf8'))
+            hb = await self.bot.session.post("https://hst.sh/documents", data = ending_string.encode('utf8'))
+            url = f"https://hst.sh/{(await hb.json())['key']}"
+            return await ctx.send(f"Here is the GEXP overview! {url}")
+        else:
+            return await ctx.send(ending_string)
+    
+    @commands.has_role(828662244652220436)
+    @commands.command(name="choppingblock", aliases=['chopping-block', 'no-gexp'])
+    async def chopping_block(self, ctx):
+        async with ctx.typing():
+            req = await self.bot.session.get(f"https://api.slothpixel.me/api/guilds/zeromomentum?populatePlayers=true")
+            res = await req.json()
+            ending_string = ""
+            for member in res['members']:
+                gexp = calc(member['exp_history'])
+                if gexp <= 30000:
+                    ending_string += f"{member['profile']['username']} has less than 30k gexp ({gexp})\n"
+        if len(ending_string) >= 2000:
+            hb = await self.bot.session.post("https://hst.sh/documents", data = ending_string.encode('utf8'))
             url = f"https://hst.sh/{(await hb.json())['key']}"
             return await ctx.send(f"Here is the GEXP overview! {url}")
         else:
