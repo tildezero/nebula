@@ -58,8 +58,13 @@ class Guild(commands.Cog):
             for member in res['members']:
                 gexp = calc(member['exp_history'])
                 if gexp >= 30000:
-                    ending_string += f"{member['profile']['username']} has 30k+ gexp"
-        print(ending_string)
+                    ending_string += f"{member['profile']['username']} has 30k+ gexp ({gexp})\n"
+        if len(ending_string) >= 2000:
+            hb = await self.bot.session.post("https://hst.sh/documents", datat = ending_string.encode('utf8'))
+            url = f"https://hst.sh/{(await hb.json())['key']}"
+            return await ctx.send(f"Here is the GEXP overview! {url}")
+        else:
+            return await ctx.send(ending_string)
 
         
 def setup(bot):
