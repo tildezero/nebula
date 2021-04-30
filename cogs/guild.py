@@ -64,7 +64,7 @@ class Guild(commands.Cog):
             url = f"https://hst.sh/{(await hb.json())['key']}"
             return await ctx.send(f"Here is the GEXP overview! {url}")
         else:
-            return await ctx.send("```diff" + ending_string + "```")
+            return await ctx.send("```diff\n" + ending_string + "```")
     
     @commands.has_role(828662244652220436)
     @commands.command(name="choppingblock", aliases=['chopping-block', 'no-gexp'])
@@ -82,7 +82,7 @@ class Guild(commands.Cog):
             url = f"https://hst.sh/{(await hb.json())['key']}"
             return await ctx.send(f"Here is the GEXP overview! {url}")
         else:
-            return await ctx.send("```diff" + ending_string + "```")
+            return await ctx.send("```diff\n" + ending_string + "```")
 
         
 def setup(bot):
