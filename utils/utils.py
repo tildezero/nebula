@@ -19,3 +19,9 @@ def chunks(lst, n):
     """
     for i in range(0, len(lst), n):
         yield lst[i:i + n]
+
+def calc(data):
+    total = 0
+    for item in data:
+        total += int(data[item])
+    return total

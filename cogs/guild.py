@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from discord_slash import cog_ext, SlashContext, manage_commands
+from utils.utils import calc
 
 class Guild(commands.Cog):
     def __init__(self, bot):
@@ -46,13 +47,7 @@ class Guild(commands.Cog):
             await ctx.send(f"{uuid_data['name']} is in the guild!")
         else:
             await ctx.send(f"{uuid_data['name']} is not in the guild :(")
-    
-    async def calc(data):
-        total = 0
-        for item in data:
-            total += int(data[item])
-        return total
-        
+            
     @commands.has_role(828662244652220436)
     @commands.command(name="gexpcheck", aliases=['gexp-check'])
     async def gexp_check(self, ctx):
