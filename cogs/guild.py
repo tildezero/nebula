@@ -46,7 +46,26 @@ class Guild(commands.Cog):
             await ctx.send(f"{uuid_data['name']} is in the guild!")
         else:
             await ctx.send(f"{uuid_data['name']} is not in the guild :(")
+    
+    async def calc(data):
+        total = 0
+        for item in data:
+            total += int(data[item])
+        return total
+        
+    @commands.has_role(828662244652220436)
+    @commands.command(name="gexpcheck", aliases=['gexp-check'])
+    async def gexp_check(self, ctx):
+        async with ctx.typing():
+            req = await self.bot.session.get(f"https://api.slothpixel.me/api/guilds/zeromomentum?populatePlayers=true")
+            res = await req.json()
+            ending_string = ""
+            for member in res['members']:
+                gexp = await calc(member['exp_history'])
+                if gexp >= 30000:
+                    string += f"{member['profile']['username']} has 30k+ gexp"
+        print(ending_string)
 
-
+        
 def setup(bot):
     bot.add_cog(Guild(bot))
