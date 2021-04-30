@@ -56,7 +56,7 @@ class Guild(commands.Cog):
             res = await req.json()
             ending_string = ""
             for member in res['members']:
-                gexp = await calc(member['exp_history'])
+                gexp = calc(member['exp_history'])
                 if gexp >= 30000:
                     ending_string += f"{member['profile']['username']} has 30k+ gexp"
         print(ending_string)
