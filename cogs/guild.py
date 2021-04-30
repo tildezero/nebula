@@ -63,7 +63,7 @@ class Guild(commands.Cog):
             for member in res['members']:
                 gexp = await calc(member['exp_history'])
                 if gexp >= 30000:
-                    string += f"{member['profile']['username']} has 30k+ gexp"
+                    ending_string += f"{member['profile']['username']} has 30k+ gexp"
         print(ending_string)
 
         
