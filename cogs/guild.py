@@ -2,11 +2,13 @@ import discord
 from discord.ext import commands
 from discord_slash import cog_ext, SlashContext, manage_commands
 from utils.utils import calc
+import json
 
 class Guild(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
+    # slash commands
     slash_guilds = [773042619734687766]
 
     @cog_ext.cog_slash(name="guild", description="Checks if you are in the guild, and gives you the guild member role", options=[manage_commands.create_option(name="username", description="Your username on hypixel", option_type=3, required=True)], guild_ids=slash_guilds)
@@ -24,6 +26,26 @@ class Guild(commands.Cog):
         role = ctx.guild.get_role(828657324877021204)
         await ctx.author.add_roles(role)
         await ctx.send("Welcome to the guild! I have sucessfully added your guild role. Enjoy!", hidden=True)
+    
+    #normal commands start here
+
+    @commands.command()
+    async def scammer(self, ctx, ign: str):
+      uuid_data = await self.session.get(f"https://api.mojang.com/users/profiles/minecraft/{ign}")
+      if uuid_data.status == 204:
+        return await ctx.send("Ign Invalid!")
+      uuid_json = await uuid_data.json()
+      uuid = uuid_json['id']
+      scammer_data = await self.bot.session.get("https://raw.githubusercontent.com/skyblockz/pricecheckbot/master/scammer.json", res_method = "text")
+      scammer_json = json.loads(scammer_data)
+      if uuid in scammer_json:
+        embed = discord.Embed(title="USER IS A SCAMMER!!", description=f"This user has been found on the scammers list!")
+        embed.add_field(name="Details", value=f"{scammer_json[uuid]['reason']}\nUser's UUID: {uuid}")
+        embed.set_author(name=f"Responsible Staff: {scammer_json[uuid]['operated_staff']} (JERRY SCAMMER LIST)")
+        await ctx.send(embed=embed)
+      else:
+        embed = discord.Embed(title="Not a Scammer", description="this user isn't a scammer, however, always be careful trading!")
+        await ctx.send(embed=embed)
     
     @commands.has_any_role(828661477606817824,828662244652220436)
     @commands.command(name='addguildrole', aliases=['agr', 'add-guild-role'])
