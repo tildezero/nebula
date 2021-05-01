@@ -41,7 +41,8 @@ class Guild(commands.Cog):
       if uuid in scammer_json:
         embed = discord.Embed(title="USER IS A SCAMMER!!", description=f"This user has been found on the scammers list!")
         embed.add_field(name="Details", value=f"{scammer_json[uuid]['reason']}\nUser's UUID: {uuid}")
-        embed.set_author(name=f"Responsible Staff: {scammer_json[uuid]['operated_staff']} (JERRY SCAMMER LIST)")
+        embed.set_author(name=f"JERRY SCAMMER LIST", url="https://raw.githubusercontent.com/skyblockz/pricecheckbot/master/scammer.json")
+        embed.set_footer(text=scammer_json[uuid]['operated_staff'])
         await ctx.send(embed=embed)
       else:
         embed = discord.Embed(title="Not a Scammer", description="this user isn't a scammer, however, always be careful trading!")
