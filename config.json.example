@@ -1,3 +1,4 @@
 {
   "token": "DISCORD TOKEN HERE"
+  "mongo_uri": "mongodb+srv://<username>:<password>@<db_url>/bot?retryWrites=true&w=majority"
 }
