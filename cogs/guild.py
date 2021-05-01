@@ -36,8 +36,8 @@ class Guild(commands.Cog):
         return await ctx.send("Ign Invalid!")
       uuid_json = await uuid_data.json()
       uuid = uuid_json['id']
-      scammer_data = await self.bot.session.get("https://raw.githubusercontent.com/skyblockz/pricecheckbot/master/scammer.json", res_method = "text")
-      scammer_json = json.loads(scammer_data)
+      scammer_data = await self.bot.session.get("https://raw.githubusercontent.com/skyblockz/pricecheckbot/master/scammer.json")
+      scammer_json = json.loads(await scammer_data.text())
       if uuid in scammer_json:
         embed = discord.Embed(title="USER IS A SCAMMER!!", description=f"This user has been found on the scammers list!")
         embed.add_field(name="Details", value=f"{scammer_json[uuid]['reason']}\nUser's UUID: {uuid}")
