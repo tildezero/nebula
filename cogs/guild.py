@@ -31,7 +31,7 @@ class Guild(commands.Cog):
 
     @commands.command()
     async def scammer(self, ctx, ign: str):
-      uuid_data = await self.session.get(f"https://api.mojang.com/users/profiles/minecraft/{ign}")
+      uuid_data = await self.bot.session.get(f"https://api.mojang.com/users/profiles/minecraft/{ign}")
       if uuid_data.status == 204:
         return await ctx.send("Ign Invalid!")
       uuid_json = await uuid_data.json()
