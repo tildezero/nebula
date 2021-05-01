@@ -23,7 +23,7 @@ class Bot(commands.Bot):
             self.config = json.load(file)
 
         self.session = aiohttp.ClientSession()
-        self.mongo = motor.motor_asyncio.AsyncIOMotorClient("mongodb+srv://zero:CGyaGGVid4dFRg@nebula.hfwq2.mongodb.net/bot?retryWrites=true&w=majority")
+        self.mongo = motor.motor_asyncio.AsyncIOMotorClient()
         self.db = self.mongo['bot']
 
     
